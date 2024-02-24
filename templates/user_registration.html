@@ -1,0 +1,12 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Registration
+{% endblock %}
+{% block content %}
+<h1>User Registration</h1>
+<hr>
+{% import "bootstrap/wtf.html" as wtf %}
+{{wtf.quick_form(form)}}
+<hr>
+{% endblock %}
