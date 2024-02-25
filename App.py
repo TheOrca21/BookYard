@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, abort, redirect, url_for
 from flask_moment import Moment
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
+from flask_mail import Mail
 from wtforms import StringField, SubmitField, TextAreaField, IntegerField, PasswordField
 from wtforms.validators import DataRequired, Email, Regexp
 import datetime
@@ -17,6 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('Library_DB')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+mail = Mail(app)
 db.init_app(app)
 
 try:
@@ -34,8 +36,7 @@ class UserForm(FlaskForm):
     email = StringField('Email:', validators=[DataRequired(), Email()])
     password = PasswordField('Password:', validators=[DataRequired()])
     address = TextAreaField('Address', validators=[DataRequired()])
-    phone = StringField('Phone:', validators=[DataRequired(),Regexp(r'^\d{10}$', message='Please enter a valid 10-digit phone number.')
-    ])
+    phone = StringField('Phone:', validators=[DataRequired(), Regexp(r'^\d{10}$', message='Please enter a valid 10-digit phone number.')])
     submit = SubmitField('Submit')
 
 
